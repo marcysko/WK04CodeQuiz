@@ -9,21 +9,41 @@
 </head>
 
 <body>
-    <header>
-        <h1 class="JavaScript Quiz Challenge">JavaScript Quiz Challenge</h1>
+    <div class="scores"><a href="score.html">View Highscores</a></div>
+
+    <div class="timer">Time: <span id="time">0</span></div>
+
+    <div class="wrapper">
+        <div id="start-screen" class="start">
+            <h1 class="JavaScript Quiz Challenge">JavaScript Quiz Challenge</h1>
         <p>
             Try to answer the following code-related questions within the time<br> 
             limit. Keep in mind that incorrect answers will penalize your score<br> 
             or time by ten seconds. 
         </p>
-        <button class="btn" >Start Quiz</button>
-    </header>
-   <script src="assets/js/script.js"></script> 
+        <button id="start">Start Quiz</button>
+    </div>
 
-   <footer>
-    &copy;2021 by Quiz Queens
-</footer>
-</body>
+    <div id="questions" class="hide">
+        <h2 id="question-title"></h2>
+        <div id="choices" class="choices"></div>
+        </div>
+
+        <div id="end-screen" class="hide">
+            <h2>All done!</h2>
+            <p>
+                Your final score is <span id="final-score"></span>.</p>
+            <p>
+                Enter initials: <input type="text" id="initials" max="3" />
+                <button id="submit">Submit</button>
+            </p>
+            </div>
+            <div id="feedback" class="feedback hide"></div>
+    </div>
+
+    <script src="./JS/questions.js"></script>
+    <script src="./JS/script.js"></script>
+  </body>
 </html>
-</body>
-</html>
+
+   
