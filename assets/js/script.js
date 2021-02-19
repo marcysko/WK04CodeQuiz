@@ -1,62 +1,158 @@
-var createTaskHandler = function() {
-    var listItemEl = document.createElement("li");
-    listItemEl.className = "task-item";
-    listItemEl.textContent = "This is a new task.";
-    var taskActionsEl = createTaskActions(taskIdCounter);
-    console.log(taskActionsEl);
-    tasksToDoEl.appendChild(listItemEl);
-};
-  buttonEl.addEventListener("click" , taskFormHandler);
+var questionsEl = document.querySelector("#questions");
+var timerEl = document.querySelector("#time");
+var choicesEl = document.querySelector("#choices");
+var submitBtn = document.querySelector("#submit");
+var startBtn = document.querySelector("#start");
+var initialsEl = document.querySelector("#initials");
+var feedback = document.querySelector("#feedback");
 
+// quiz state variables
+var currentQuestionIndex = 0;
+var time = questions.length * 15;
+var timerId;
 
-  var counter = 10
-  var countdown = function(){
-      console.log(counter);
-      counter--;
-      if(counter === 0){
-        console.log("blastoff");
-        clearInterval(startCountdown);
-      };
-    };
-
-    var SayHello = function(){
-        console.log("Hello there");
-    };
-    var timedGreeting = setTimeout(SayHello, 2000);
+function startQuiz() {
+  //hide start screen
+  var startScreenEl = document.getElementById("start-screen");
+  startScreenEl.setAttribute("class", "hide");
   
-    clearTimeout(timedGreeting);
+  // un-hide questions section
+  questionsEl.removeAttribute("class");
+
+  // start timer
+  timerId = setInterval(clockTick, 1000);
+
+  // show starting time
+  timerEl.textContent = time;
+
+  getQuestion();
+}
+
+function getQuestion() {
+  //get current question object from array
+  var currentQuestion = questions[currentQuestionIndex];
   
-  
-  var startCountdown = setInterval(countdown, 1000);
+  // update title with current question
+  var titleEl = document.getElementById("question-title");
+  titleEl.textContent = currentQuestion.title;
 
-  var questions = [
-    {
-      prompt: "what color are apples?\n(a) Red/Green\n\
-                (b) Purple\n(c) Orange",
-      answer: "a"          
-    },
-    {
-      prompt: "what color are Bananas?\n(a) Red/Green\n\
-                (b) Purple\n(c) Yellow",
-      answer: "c"          
-    },
-    {
-      prompt: "what color are strawberries?\n(a) Red/Green\n\
-                (b) Purple\n(c) red",
-      answer: "c"          
-    },
+  // clear out any prior question choices
+  choicesEl.innerHTML ="";
 
+  // loop over choices
+  currentQuestion.choices.forEach(function(choice, i) {
+    // create new button for each choice
+    var choiceNode = document.createElement("button");
+    choiceNode.setAttribute("class", "choice");
+    choiceNode.setAttribute("value", choice);
 
-  var score = 0;
+    choiceNode.textContent = i + 1 + ". " + choice;
 
-  for(var i=0; i < questions.length; i++){
-    var response = window.prompt(questions[i].prompt);
-    if (response == questions[i].answer){
-      score++;
-      alert("Correct!");
-    } else {
-      alert("Wrong!");
+    // attach click eventListener to each choice
+    choiceNode.onclick = questionClick;
+
+    // display on the page
+    choicesEl.appendChild(choiceNode);
+    });
+  }
+function questionClick() {
+  // check if user guessed wrong
+  if (this.value !== questions[currentQuestionIndex].answer) {
+    // penalize time
+    time -= 15;
+
+    if (time < 0) {
+      time = 0;
     }
+  // display new time on page
+  timerEl.textContent = time;
+  feedbackEl.textContent = "Wrong!";
+  feedbackEl.style.color = "red";
+  feedbackEl.style.fontSize = "400%";
+  } else {
+    feedbackEl.textContent = "Correct!";
+    feedbackEl.style.color = "green";
+    feedbackEl.style.fontSize = "400%";
+  }
+  //flash correct/wrong feedback
+  feedbackEl.setAttribute("class", "feedback");
+  setTimeout(function() {
+    feedbackEl.setAttribute("class", "feedback hide");
+  }, 1000);
+  
+  // next question
+  currentQuestionIndex++;
+
+  // time checker
+  if (currentQuestionIndex === questions.length) {
+    quizEnd();
+  } else {
+    getQuestion();
     }
-alert("you got " + score + "/" + questions.length);
+  }
+
+  function quizEnd() {
+    //stop timer
+    clearInterval(timerId);
+
+    //show end screen
+    var endScreenEl = document.getElementById("end-screen");
+    endScreenEl.removeAttribute("class");
+
+    //show final score
+    var finalScoreEl = document.getElementById("final-score");
+    finalScoreEl.textContent = time;
+
+    // hide questions section
+    questionsEl.setAttribute("class", "hide");
+  }
+
+  function clockTick() {
+    //update time
+    time--;
+    timerEl.textContent = time;
+
+    // check if player ran out of time
+    if (time <= 0) {
+      quizEnd();
+    }
+  }
+function saveHighscore() {
+  // get value of input box
+  var initials = initialsEl.value.trim();
+
+  if (initials != "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    var highscores =
+      JSON.parse(window.localStorage.getItem("highscores")) || [];
+
+   // format new score object for current player
+   var newScore = {
+     score: time,
+     initials: initials
+   };
+   
+   // save to localStorage
+   highscores.push(newScore);
+   window.localStorage.setItem("highscores", JSON.stringify(highscores));
+
+   // redirect to next page
+   window.location.href = "score.html";
+  }
+}
+
+function checkForEnter(event) {
+  // "13" represents the enter key
+  if (event.key === "Enter") {
+    saveHighscore();
+  }
+}
+
+// submit initials
+submitBtn.onclick = saveHighscore;
+
+// start quiz
+startBtn.onclick = startQuiz;
+
+initialsEl.onkeyup = checkForEnter;
   
