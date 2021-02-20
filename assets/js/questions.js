@@ -42,14 +42,14 @@ var questions = [
       answer: "// My pet alligator ate my sandwich"
     },
     {
-      title: "What is the data type of variables in JavaScript?",
+      title: "What is the default Keyword used for in JavaScript?",
       choices: [
-        "Object data types",
-        "Function data type",
-        "None of the above",
+        "specifies code to run if there is no case match",
+        "create a border around text",
+        "link a style sheet",
         "All of the above"
       ],
-      answer: "Object data types"
+      answer: "specifies code to run if there is no case match"
     },
     {
       title: "The condition in an if / else statement is enclosed within ____.",
@@ -57,26 +57,26 @@ var questions = [
       answer: "parentheses"
     },
     {
-      title: "Arrays in JavaScript can be used to store ____.",
+      title: "What does a JavaScript Boolean represent?",
       choices: [
-        "numbers and strings",
-        "other arrays",
-        "booleans",
+        "the number 10",
+        "true or false",
+        "Bitwise operation",
         "all of the above"
       ],
-      answer: "all of the above"
+      answer: "true or false"
     },
     {
       title:
-        "String values must be enclosed within ____ when being assigned to variables.",
-      choices: ["commas", "curly brackets", "quotes", "parentheses"],
-      answer: "quotes"
+        "Which word cannot be used as a variable, label, or function name?",
+      choices: ["pronk", "abear", "fartlek", "private"],
+      answer: "private"
     },
     {
       title:
-        "A very useful tool used during development and debugging for printing content to the debugger is:",
-      choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
-      answer: "console.log"
+        "What is JavaScript JSON?",
+      choices: ["a monster", "a format for storing and transporting data", "an error", "console.log"],
+      answer: "a format for storing and transporting data"
     },
     {
       title: "What is the type of Pop up boxes available in JavaScript?:",

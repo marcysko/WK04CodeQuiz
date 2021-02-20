@@ -7,6 +7,7 @@ var startBtn = document.querySelector("#start");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 
+
 // quiz state variables
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
@@ -61,7 +62,7 @@ function questionClick() {
   // check if user guessed wrong
   if (this.value !== questions[currentQuestionIndex].answer) {
     // penalize time
-    time -= 15;
+    time -= 10;
 
     if (time < 0) {
       time = 0;
@@ -82,6 +83,8 @@ function questionClick() {
   setTimeout(function() {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
+
+
 
   // next question
   currentQuestionIndex++;
@@ -109,6 +112,7 @@ function quizEnd() {
   // hide questions section
   questionsEl.setAttribute("class", "hide");
 }
+
 
 function clockTick() {
   // update time
