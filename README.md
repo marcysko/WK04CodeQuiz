@@ -12,7 +12,7 @@ Build a timed code quiz with multiple-choice questions. This app will run in the
 * CSS
 
 ## Website
-https://marcysko.github.io/run-buddy/
+https://marcysko.github.io/WK04CodeQuiz/
 
 ## Contribution
 Made with ❤️ by Marcy S.
