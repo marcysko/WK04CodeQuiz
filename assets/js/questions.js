@@ -32,7 +32,7 @@ var questions = [
     },
     {
       title:
-        "What is the correct way to enter a comment into JavaScript?",
+        "What is the correct way to enter a comment in JavaScript?",
       choices: [
         "// My pet alligator ate my sandwich",
         "<!-- It is friday -->",
@@ -79,7 +79,7 @@ var questions = [
       answer: "a format for storing and transporting data"
     },
     {
-      title: "What is the type of Pop up boxes available in JavaScript?:",
+      title: "What type of Pop up box is available in JavaScript?:",
       choices: ["Alert", "Confirm", "Prompt", "All the above"],
       answer: "All the above"
     }
